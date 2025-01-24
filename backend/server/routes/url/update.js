@@ -1,21 +1,22 @@
+import { getUrlsCollection } from '../../config/db.js'
 
-export async function urlUpdate (request, reply) {
+export async function urlUpdate(request, res) {
+  const { body } = request
+  const { short_url: shortUrl, primary_url: primaryUrl } = body
 
-  const {
-    params
-  } = request
+  try {
+    const urlEntry = await getUrlsCollection().updateOne(
+      { short_url: shortUrl },
+      { $set: { primary_url: primaryUrl } }
+    )
 
-  const {
-    invite_id: inviteId
-  } = params
+    if (urlEntry.matchedCount === 0) {
+      return res.status(404).json({ error: 'Short URL not found' })
+    }
 
-  console.log(`[${inviteId}] Attempting to get invite`)
-
-
-
-
-  return reply
-    .code(200)
-    .header('Content-Type', 'application/json')
-    .send('Success')
+    res.status(200).json({ message: 'Short URL updated successfully', updated: urlEntry })
+  } catch (error) {
+    console.error('Error updating short URL:', error)
+    res.status(500).json({ error: 'Failed to update short URL' })
+  }
 }

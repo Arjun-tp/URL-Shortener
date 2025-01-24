@@ -5,15 +5,14 @@ import { urlUpdate } from './url/update.js'
 import { urlDelete } from './url/delete.js'
 import { urlCreate } from './url/create.js'
 
-
 const router = Router()
 
 router.use('/health', healthRoutes)
 
 // URL routes
-router.get('/urls/:url_id', urlGet)
+router.get('/urls/:shorten_code', urlGet)
 router.put('/urls', urlUpdate)
-router.delete('/urls/:url_id', urlDelete)
+router.delete('/urls/:_id', urlDelete)
 router.post('/urls', urlCreate)
 
 export default router
