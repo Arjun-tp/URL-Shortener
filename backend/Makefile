@@ -6,7 +6,7 @@ install:
 
 start:
 	@echo "Starting the backend..."
-	node server/index.js
+	node -r dotenv/config server/index.js
 
 dev:
 	@echo "Starting backend in development mode..."
@@ -18,7 +18,7 @@ test:
 
 lint:
 	@echo "Linting code..."
-	npx eslint server/**/*.js
+	npx eslint . --fix
 
 clean:
 	@echo "Cleaning up..."

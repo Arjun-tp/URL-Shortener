@@ -1,18 +1,22 @@
+import { getDatabase } from '../../config/db.js'
 
-export async function urlGet (request, reply) {
+export async function urlGet(req, res) {
+  const { shorten_id: shortenId } = req.params
 
-    const {
-        params
-    } = request
+  const db = getDatabase()
+  const collection = db.collection('urls')
 
-    const {
-        invite_id: inviteId
-    } = params
+  try {
+    const urlEntry = await collection.findOne({ short_url: `https://shorten.ly/${shortenId}` })
 
-    console.log(`[${inviteId}] Attempting to get invite`)
+    if (!urlEntry) {
+      return res.status(404).json({ error: 'Short URL not found' })
+    }
 
-
-
-
-    return reply.send('Success')
+    console.log(`[${shortenId}] Retrieved URL: ${urlEntry.originalUrl}`)
+    res.status(200).json(urlEntry)
+  } catch (error) {
+    console.error('Error retrieving short URL:', error)
+    res.status(500).json({ error: 'Failed to retrieve short URL' })
+  }
 }
