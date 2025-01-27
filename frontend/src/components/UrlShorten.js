@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-function UrlForm() {
+function UrlShorten() {
   const [url, setUrl] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
     alert(`Shortening URL: ${url}`)
-    setUrl('') // Reset the input field after submission
+    setUrl('')
   }
 
   return (
@@ -24,11 +24,11 @@ function UrlForm() {
         <button type="submit">Shorten URL</button>
       </form>
       <p>
-                Shorten URL is a convenient tool for creating short links from long URLs.
-                It simplifies the process of generating shareable links, making it easier to distribute and manage.
+            Shorten URL is a convenient tool for creating short links from long URLs.
+            It simplifies the process of generating shareable links, making it easier to distribute and manage.
       </p>
     </div>
   )
 }
 
-export default UrlForm
+export default UrlShorten
