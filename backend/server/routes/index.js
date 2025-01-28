@@ -10,7 +10,7 @@ const router = Router()
 router.use('/health', healthRoutes)
 
 // URL routes
-router.get('/urls/:shorten_code', urlGet)
+router.get('/urls/:url', urlGet)
 router.put('/urls', urlUpdate)
 router.delete('/urls/:_id', urlDelete)
 router.post('/urls', urlCreate)

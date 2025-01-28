@@ -1,10 +1,14 @@
 import { getUrlsCollection } from '../../config/db.js'
 
 export async function urlGet(req, res) {
-  const { shorten_code: shortenCode } = req.params
+  const { url } = req.params
+
+  let key = url.includes('shorten.ly') ? 'short_url' : 'primary_url'
 
   try {
-    const urlEntry = await getUrlsCollection().findOne({ short_url: `shorten.ly/${shortenCode}` })
+    const query = {[key]: JSON.stringify(url)}
+    console.log('query:', query)
+    const urlEntry = await getUrlsCollection().findOne(query)
 
     if (!urlEntry) {
       return res.status(404).json({ error: 'Short URL not found' })

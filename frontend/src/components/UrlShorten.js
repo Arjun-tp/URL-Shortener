@@ -8,7 +8,6 @@ function UrlShorten() {
     alert(`Shortening URL: ${url}`)
     setUrl('')
   }
-
   return (
     <div className="url-form-container">
       <h1>Shorten URL</h1>
