@@ -24,8 +24,11 @@ function UrlExpand() {
             type="text"
             placeholder="Add the link here"
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            required
+            onChange={(e) => {
+              let inputUrl = e.target.value
+              let key = inputUrl.includes('shorten.ly') ? inputUrl.split('/')[1] : inputUrl
+              setUrl(key)
+            }}
           />
           <button type="submit">Expand URL</button>
         </form>
@@ -37,7 +40,8 @@ function UrlExpand() {
       {isData && (
         <div className="url-form-container bg-white p-6 rounded-xl shadow-md w-full max-w-md mt-6">
           <h1 className="text-xl font-bold text-gray-700 mb-2">Expanded URL</h1>
-          <p className="text-blue-500 underline break-all">{data.primary_url}</p>
+          <p className="text-xl font-bold text-gray-700 mb-2">URL: <b>{data.primary_url}</b></p>
+          <p className="text-blue-500 underline break-all">Short URL: <b>{data.short_url}</b></p>
         </div>
       )}
     </div>
