@@ -1,9 +1,12 @@
 import { getUrlsCollection } from '../../config/db.js'
+import { nanoid } from 'nanoid'
 
 export async function urlCreate (request, res) {
   const { body } = request
 
-  const { short_url: shortUrl, primary_url: primaryUrl } = body
+  const { primary_url: primaryUrl } = body
+
+  let shortUrl = `shorten.ly/${nanoid(10)}`
   try{
     const urlEntry = await getUrlsCollection().insertOne({ short_url: shortUrl, primary_url: primaryUrl })
     if (!urlEntry) {
